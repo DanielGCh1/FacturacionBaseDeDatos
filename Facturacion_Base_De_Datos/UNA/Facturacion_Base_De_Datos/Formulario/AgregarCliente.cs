@@ -25,7 +25,7 @@ namespace Facturacion_Base_De_Datos.UNA.Facturacion_Base_De_Datos.Formulario
         {
             itSaved = new DialogResult();
             cliente = new Cliente();
-            cliente.Cedula = Convert.ToInt32(cedulaTextBox.Text);
+            cliente.Cedula = Convert.ToInt64(cedulaTextBox.Text);
             cliente.Nombre = nombreTextBox.Text;
             cliente.Telefono = Convert.ToInt32(telefonoTextBox.Text);
             cliente.Direccion = direecionTextBox.Text;

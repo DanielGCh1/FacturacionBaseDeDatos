@@ -8,7 +8,7 @@ namespace Facturacion_Base_De_Datos.UNA.Facturacion_Base_De_Datos.Modelos
 {
     public  class Cliente
     {
-        public int Cedula { get; set; }
+        public long Cedula { get; set; }
         public string  Nombre {get; set;}
         public int Telefono { get; set; }
         public string Direccion { get; set; }

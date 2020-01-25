@@ -17,6 +17,7 @@ namespace Facturacion_Base_De_Datos.UNA.Facturacion_Base_De_Datos.Formulario
         public Clientes()
         {
             mySQL  = new MyDBSQL();
+            mySQL.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DBActual"].ConnectionString;
             InitializeComponent();
         }
 
@@ -28,11 +29,11 @@ namespace Facturacion_Base_De_Datos.UNA.Facturacion_Base_De_Datos.Formulario
             {
                 mySQL.OpenConnection();
                 mySQL.BeginTransaction();
-                mySQL.EjectSQL(String.Format("INSERT INTO clientes (`idCliente`, `nombre`, `telefono`, `direccion`, `correo`) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}')",
-                agregarCliente.cliente.Cedula, agregarCliente.cliente.Nombre, agregarCliente.cliente.Telefono, agregarCliente.cliente.Direccion, agregarCliente.cliente.Correo));
+                mySQL.EjectSQL(String.Format("INSERT INTO clientes (`nombre`, `telefono`, `direccion`) VALUES ('{0}', '{1}', '{2}')",
+                agregarCliente.cliente.Nombre, agregarCliente.cliente.Telefono, agregarCliente.cliente.Direccion));
                 mySQL.CommitTransaction();
                 mySQL.CloseConnection();
-                mySQL.QuerySQL("SELECT * FROM facturacion.clientes");
+                mySQL.QuerySQL("SELECT * FROM clientes");
                 RefrescarClientesDataGrid();
             }
            
@@ -43,7 +44,7 @@ namespace Facturacion_Base_De_Datos.UNA.Facturacion_Base_De_Datos.Formulario
         }
         public void RefrescarClientesDataGrid()
         {
-            clientesDataGridView.DataSource = mySQL.QuerySQL("SELECT * FROM facturacion.clientes");
+            clientesDataGridView.DataSource = mySQL.QuerySQL("SELECT * FROM clientes");
         }
         
         public void CargarDataGrid(DataTable data)
@@ -52,9 +53,9 @@ namespace Facturacion_Base_De_Datos.UNA.Facturacion_Base_De_Datos.Formulario
         }
         private void Clientes_Load(object sender, EventArgs e)
         {
-            mySQL.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DBActual"].ConnectionString;
             mySQL.OpenConnection();
             RefrescarClientesDataGrid();
+            mySQL.CloseConnection();
         }
 
         private void BuscarButton_Click(object sender, EventArgs e)
